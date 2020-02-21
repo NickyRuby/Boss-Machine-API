@@ -2,6 +2,15 @@ const express = require('express');
 const apiRouter = express.Router();
 const minionRouter = express.Router();
 const ideasRouter = express.Router()
+const {
+  createMeeting,
+  getAllFromDatabase,
+  getFromDatabaseById,
+  addToDatabase,
+  updateInstanceInDatabase,
+  deleteFromDatabasebyId,
+  deleteAllFromDatabase,
+} = require('./db');
 
 
 minionRouter.get('/',(req,res,next) => {
