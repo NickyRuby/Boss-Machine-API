@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
 
 module.exports = app;
@@ -13,12 +12,13 @@ const PORT = process.env.PORT || 4001;
 
 
 // Add middware for parsing request bodies here:
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // !! использую, чтобы при POST / UPDATE запросах превращать тело запроса в JSON и использовать дальше
 
 
 // Mount your existing apiRouter below at the '/api' path.
-const apiRouter = require('./server/api.js');
-const minionRouter = require('./server/api.js');
+const apiRouter = require('./server/api');
+app.use('/api', apiRouter); // все роуты уже вложены в этот, это как обертка 
 
 
 // This conditional is here for testing purposes:
@@ -26,7 +26,4 @@ if (!module.parent) {
   // Add your code to start the server listening at PORT below:
 app.listen(PORT);
 app.use(express.static('public'));
-app.use('api/ideas', apiRouter);
-app.use('api/minions', minionRouter);
-
 }
